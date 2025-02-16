@@ -1,5 +1,6 @@
 package com.example.KrishiConnect.config;
 
+import com.example.KrishiConnect.model.UserPrincipal;
 import com.example.KrishiConnect.service.JWTService;
 import com.example.KrishiConnect.service.MyUserDetailsService;
 import jakarta.servlet.FilterChain;
@@ -38,7 +39,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (phone!=null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = context.getBean(MyUserDetailsService.class).loadUserByUsername(phone);
 
-            if (jwtservice.validateToken(token,userDetails)){
+            if (jwtservice.validateToken(token,(UserPrincipal) userDetails)){
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

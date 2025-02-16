@@ -20,10 +20,10 @@ public class MyUserDetailsService implements UserDetailsService {
 
         Users user = userRepo.findByPhone(phone);
         if (user == null){
-            System.out.println("User not found");
+            System.out.println("User not found" + phone);
             throw new UsernameNotFoundException("User not found");
         }
-
+        System.out.println("Loaded user: " + user.getPhone());
         return new UserPrincipal(user);
     }
 }

@@ -1,49 +1,32 @@
 package com.example.KrishiConnect.service;
 
+import com.example.KrishiConnect.model.UserPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 @Service
 public class JWTService {
-    private String secretKey = "";
-    public JWTService() {
-        try {
-            KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
-            SecretKey sk = keyGen.generateKey();
-            secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
-        }catch (NoSuchAlgorithmException e){
-            throw new RuntimeException(e);
-        }
 
-    }
+    @Value("${jwt.secret}")
+    private String secretKey; // Correctly using the fixed key
+
     public String generateToken(String phone) {
-
-        Map<String , Object> claims = new HashMap<>();
         return Jwts.builder()
-                .claims()
-                .add(claims)
                 .subject(phone)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis()+60*60*60*30))
-                .and()
+                .expiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 30)) // 30-day token
                 .signWith(getKey())
                 .compact();
-
     }
-
 
     private SecretKey getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
@@ -51,7 +34,6 @@ public class JWTService {
     }
 
     public String extractPhone(String token) {
-        // extract the username from jwt token
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -77,14 +59,11 @@ public class JWTService {
         System.out.println("UserDetails phone: " + userDetails.getUsername());
         System.out.println("Is token expired? " + isExpired);
 
-        return (userPhone.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return userPhone.equals(((UserPrincipal) userDetails).getUserPhone()) && !isTokenExpired(token);
+
     }
 
     private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
-
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
+        return extractClaim(token, Claims::getExpiration).before(new Date());
     }
 }

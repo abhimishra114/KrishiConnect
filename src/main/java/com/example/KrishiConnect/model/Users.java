@@ -42,6 +42,10 @@ public class Users {
                 ", createdAt=" + createdAt +
                 '}';
     }
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     public int getUserId() {
         return userId;
