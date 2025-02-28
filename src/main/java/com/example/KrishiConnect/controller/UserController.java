@@ -2,6 +2,8 @@ package com.example.KrishiConnect.controller;
 
 import com.example.KrishiConnect.model.Users;
 import com.example.KrishiConnect.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/public")
+@Tag(name = "User API", description = "User authentication operations")
 public class UserController {
 
     @Autowired
@@ -19,11 +22,13 @@ public class UserController {
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
+    @Operation(summary = "Get all users", description = "Get all users from the database")
     @GetMapping("/users")
     public ResponseEntity<List<Users>> getAllUsers(){
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Register a user", description = "Register a user in the database")
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody Users user){
         try {
@@ -34,6 +39,7 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Login a user", description = "Login a user in the database")
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Users user){
         try {
