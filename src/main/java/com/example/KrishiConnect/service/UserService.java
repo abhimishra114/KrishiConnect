@@ -40,4 +40,8 @@ public class UserService {
         }
         return "failure";
     }
+
+    public Users getUserByPhone(String phoneNum) {
+        return userRepo.findByPhone(phoneNum);
+    }
 }

@@ -27,6 +27,11 @@ public class UserController {
     public ResponseEntity<List<Users>> getAllUsers(){
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
+    @GetMapping("users/{phoneNum}")
+    public ResponseEntity<Users> getUserByPhone(@PathVariable String phoneNum){
+        Users user = userService.getUserByPhone(phoneNum);
+        return new ResponseEntity<>(user,HttpStatus.OK);
+    }
 
     @Operation(summary = "Register a user", description = "Register a user in the database")
     @PostMapping("/register")
@@ -50,5 +55,7 @@ public class UserController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
 }
