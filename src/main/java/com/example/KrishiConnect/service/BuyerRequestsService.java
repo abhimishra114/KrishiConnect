@@ -20,4 +20,8 @@ public class BuyerRequestsService {
     public BuyerRequests addBuyerRequest(BuyerRequests buyerRequest) {
         return buyerRequestsRepo.save(buyerRequest);
     }
+
+    public BuyerRequests getBuyerRequestById(int id) {
+        return buyerRequestsRepo.findById(id).orElse(null);
+    }
 }
