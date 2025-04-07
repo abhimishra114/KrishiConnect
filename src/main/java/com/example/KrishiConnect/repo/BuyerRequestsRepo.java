@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface BuyerRequestsRepo extends JpaRepository<BuyerRequests, Integer> {
     List<BuyerRequests> findByStatus(BuyerRequests.Status status);
+
+    List<BuyerRequests> findAllByBusinessId(int businessId);
 }

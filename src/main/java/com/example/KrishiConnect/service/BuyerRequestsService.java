@@ -67,4 +67,7 @@ public class BuyerRequestsService {
         return dto;
     }
 
+    public List<BuyerRequests> getAllBuyerRequestFromBusinessId(int businessId) {
+        return buyerRequestsRepo.findAllByBusinessId(businessId);
+    }
 }
