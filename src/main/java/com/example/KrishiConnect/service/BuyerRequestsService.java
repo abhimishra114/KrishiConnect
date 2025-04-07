@@ -25,6 +25,7 @@ public class BuyerRequestsService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
     public List<BuyerRequestDTO> getAllOpenBuyerRequests() {
         List<BuyerRequests> requests = buyerRequestsRepo.findByStatus(BuyerRequests.Status.OPEN);
         return requests.stream()
@@ -69,5 +70,9 @@ public class BuyerRequestsService {
 
     public List<BuyerRequests> getAllBuyerRequestFromBusinessId(int businessId) {
         return buyerRequestsRepo.findAllByBusinessId(businessId);
+    }
+
+    public List<BuyerRequests> getAllBuyerRequestsAlongWithId() {
+        return buyerRequestsRepo.findAll();
     }
 }

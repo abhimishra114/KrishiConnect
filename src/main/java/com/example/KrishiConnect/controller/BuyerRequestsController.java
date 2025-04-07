@@ -30,6 +30,11 @@ public class BuyerRequestsController {
         return new ResponseEntity<>(buyerRequestsService.getAllBuyerRequests(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Get a list of all buyer requests with id instead of business name")
+    @GetMapping("/buyer-requests/all")
+    public ResponseEntity<List<BuyerRequests>> getAllBuyerRequestsAlongWithId() {
+        return new ResponseEntity<>(buyerRequestsService.getAllBuyerRequestsAlongWithId(), HttpStatus.OK);
+    }
     @Operation(summary = "Get a list of all OPEN buyer requests")
     @GetMapping("/buyer-requests/open")
     public ResponseEntity<List<BuyerRequestDTO>> getAllOpenBuyerRequests() {
