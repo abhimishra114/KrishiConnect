@@ -68,8 +68,11 @@ public class BuyerRequestsService {
         return dto;
     }
 
-    public List<BuyerRequests> getAllBuyerRequestFromBusinessId(int businessId) {
-        return buyerRequestsRepo.findAllByBusinessId(businessId);
+    public List<BuyerRequestDTO> getAllBuyerRequestFromBusinessId(int businessId) {
+        List<BuyerRequests> request = buyerRequestsRepo.findAllByBusinessId(businessId);
+        return request.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     public List<BuyerRequests> getAllBuyerRequestsAlongWithId() {

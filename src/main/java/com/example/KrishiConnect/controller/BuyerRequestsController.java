@@ -55,12 +55,11 @@ public class BuyerRequestsController {
 
     @Operation(summary = "get buyer request of a specific user")
     @GetMapping("/buyer-requests/business/{businessId}")
-    public ResponseEntity<List<BuyerRequests>> getAllBuyerRequestsFromBusinessId(@PathVariable int businessId) {
-        List<BuyerRequests> list = buyerRequestsService.getAllBuyerRequestFromBusinessId(businessId);
+    public ResponseEntity<List<BuyerRequestDTO>> getAllBuyerRequestsFromBusinessId(@PathVariable int businessId) {
+        List<BuyerRequestDTO> list = buyerRequestsService.getAllBuyerRequestFromBusinessId(businessId);
         if (list.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
