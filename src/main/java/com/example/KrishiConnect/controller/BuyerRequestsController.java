@@ -53,6 +53,16 @@ public class BuyerRequestsController {
         return new ResponseEntity<>(buyerRequestsService.addBuyerRequest(buyerRequest), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "update a buyer request")
+    @PutMapping("/buyer-requests")
+    public ResponseEntity<BuyerRequests> updateBuyerRequest(@RequestBody BuyerRequests buyerRequest) {
+        BuyerRequests existingRequest = buyerRequestsService.fetchBuyerRequestById(buyerRequest.getRequestId());
+        if (existingRequest == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(buyerRequestsService.updateBuyerRequest(buyerRequest), HttpStatus.OK);
+    }
+
     @Operation(summary = "get buyer request of a specific user")
     @GetMapping("/buyer-requests/business/{businessId}")
     public ResponseEntity<List<BuyerRequestDTO>> getAllBuyerRequestsFromBusinessId(@PathVariable int businessId) {
