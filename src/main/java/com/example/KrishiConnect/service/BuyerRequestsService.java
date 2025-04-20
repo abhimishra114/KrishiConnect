@@ -49,20 +49,15 @@ public class BuyerRequestsService {
     }
 
 
-    public BuyerRequests fetchBuyerRequestById(int id) {
-        return buyerRequestsRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Buyer Request not found"));
-    }
-
     public BuyerRequests addBuyerRequest(BuyerRequests buyerRequest) {
         return buyerRequestsRepo.save(buyerRequest);
     }
 
-     public BuyerRequests updateBuyerRequest(BuyerRequests buyerRequests){
+    public BuyerRequests updateBuyerRequest(BuyerRequests buyerRequests) {
 
-         return buyerRequestsRepo.save(buyerRequests);
+        return buyerRequestsRepo.save(buyerRequests);
 
-     }
+    }
 
     private BuyerRequestDTO mapToDTO(BuyerRequests request) {
         Users user = usersRepository.findById(request.getBusinessId())

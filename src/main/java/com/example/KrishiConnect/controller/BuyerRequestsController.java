@@ -56,10 +56,6 @@ public class BuyerRequestsController {
     @Operation(summary = "update a buyer request")
     @PutMapping("/buyer-requests")
     public ResponseEntity<BuyerRequests> updateBuyerRequest(@RequestBody BuyerRequests buyerRequest) {
-        BuyerRequests existingRequest = buyerRequestsService.fetchBuyerRequestById(buyerRequest.getRequestId());
-        if (existingRequest == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(buyerRequestsService.updateBuyerRequest(buyerRequest), HttpStatus.OK);
     }
 
