@@ -28,7 +28,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(customizer -> customizer.disable());
         http.authorizeHttpRequests(request -> request
-                .requestMatchers("/api/public/register", "/api/public/login","/api/pincode/**",
+                .requestMatchers("/api/public/register",
+                        "/api/public/registerWithImage",
+                        "/api/public/login",
+                        "/api/pincode/**",
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
                         "/swagger-ui.html")
