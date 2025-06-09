@@ -88,4 +88,8 @@ public class BuyerRequestsService {
     public List<BuyerRequests> getAllBuyerRequestsAlongWithId() {
         return buyerRequestsRepo.findAll();
     }
+
+    public List<BuyerRequests> searchBuyerRequests(String keyword) {
+        return buyerRequestsRepo.searchBuyerRequests(keyword);
+    }
 }

@@ -69,4 +69,15 @@ public class BuyerRequestsController {
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
+    @Operation(summary = "search for a buyer-requests with related keywords")
+    @GetMapping("/buyer-requests/search/{keyword}")
+    public ResponseEntity<?> searchBuyerRequests(@PathVariable String keyword){
+        System.out.println("Searching for keyword: " + keyword);
+        if (keyword.length() < 3){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Keyword must be at least 3 characters long");
+        }
+        return ResponseEntity.ok(buyerRequestsService.searchBuyerRequests(keyword));
+    }
+
 }
