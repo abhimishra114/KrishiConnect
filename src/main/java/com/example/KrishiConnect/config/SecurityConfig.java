@@ -34,7 +34,9 @@ public class SecurityConfig {
                         "/api/pincode/**",
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
-                        "/swagger-ui.html")
+                        "/swagger-ui.html",
+                        "/ws/**"
+                )
                 .permitAll()
                 .anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
