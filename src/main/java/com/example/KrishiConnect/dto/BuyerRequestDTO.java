@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 public class BuyerRequestDTO {
     private int requestId;
+    private int businessId;
     private String businessName;
     private String title;
     private String description;
@@ -24,6 +25,7 @@ public class BuyerRequestDTO {
     public String toString() {
         return "BuyerRequestDTO{" +
                 "requestId=" + requestId +
+                ", businessId=" + businessId +
                 ", businessName='" + businessName + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
@@ -35,6 +37,14 @@ public class BuyerRequestDTO {
                 ", status=" + status +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+
+    public int getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(int businessId) {
+        this.businessId = businessId;
     }
 
     public int getRequestId() {

@@ -65,6 +65,7 @@ public class BuyerRequestsService {
 
         BuyerRequestDTO dto = new BuyerRequestDTO();
         dto.setRequestId(request.getRequestId());
+        dto.setBusinessId(request.getBusinessId());
         dto.setBusinessName(user.getName());
         dto.setTitle(request.getTitle());
         dto.setDescription(request.getDescription());
