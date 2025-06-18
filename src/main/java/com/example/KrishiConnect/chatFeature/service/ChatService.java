@@ -144,12 +144,20 @@ public class ChatService {
             if (other.isEmpty()) continue;
 
             Users otherUser = userRepo.findById(other.get().getUserId()).orElse(null);
-            String listingTitle = null;
+//            String listingTitle = null;
+            Integer listingId = null;
             if (convo.getListingId() != null) {
-                listingTitle = listingRepo.findById(convo.getListingId())
-                        .map(Listings::getTitle)
-                        .orElse(null);
+//                listingTitle = listingRepo.findById(convo.getListingId())
+//                        .map(Listings::getTitle)
+//                        .orElse(null);
+                listingId = convo.getListingId();
+
             }
+            Integer buyerRequestId = null;
+            if (convo.getBuyerRequestId() != null){
+                buyerRequestId = convo.getBuyerRequestId();
+            }
+
 
             // Optional: fetch latest message timestamp
             LocalDateTime lastMessageTime = messageRepository
@@ -162,7 +170,8 @@ public class ChatService {
                     otherUser.getUserId(),
                     otherUser.getName(),
                     otherUser.getProfilePicture(),
-                    listingTitle,
+                    listingId,
+                    buyerRequestId,
                     lastMessageTime
             ));
         }

@@ -2,6 +2,7 @@ package com.example.KrishiConnect.controller;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.KrishiConnect.dto.ListingDTO;
 import com.example.KrishiConnect.model.Listings;
 import com.example.KrishiConnect.service.ListingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,7 +52,7 @@ public class ListingController {
 
     @Operation(summary = "get all listings in the db")
     @GetMapping("/listing")
-    public ResponseEntity<List<Listings>> getAllListings(){
+    public ResponseEntity<List<ListingDTO>> getAllListings(){
         return new ResponseEntity<>(listingService.getAllListings(),HttpStatus.OK);
     }
 
